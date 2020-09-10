@@ -86,7 +86,7 @@ python instagram_bot.py
 
 The script is working, space images will be posted one by one into your instagram account around every 60 seconds each. All logs are saved into ```config``` directory.
 
-***WARNING! Changing time between publications ```(time.sleep(<time>))``` to low values or turning it off at all is not recommended as instagram security script may react to this activity and won't allow you to do any publications from 24 hours to 4 days. Also uploading same images or images with same caption is not recommended***
+***WARNING! Changing time between publications ```(time.sleep(<time>))``` to low values or turning it off at all is not recommended as instagram security script is sensitive to changes in activity may stop allowing you doing any publications from 24 hours to 4 days. Also uploading same images or images with same caption is not recommended***
 
 ### Project Goals
 
