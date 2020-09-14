@@ -4,19 +4,14 @@ import os
 import time
 
 
-def user_login(bot):
+def main():
+    bot = Bot()
+
     load_dotenv()
     username = os.getenv("INSTAGRAM_LOGIN")
     password = os.getenv("INSTAGRAM_PASSWORD")
+
     bot.login(username=username, password=password)
-
-
-upload_space_image = lambda bot, path: bot.upload_photo(path)
-
-
-def main():
-    bot = Bot()
-    user_login(bot)
 
     try:
         images = os.listdir("resized_images")
@@ -25,11 +20,11 @@ def main():
 
     for image in images:
         try:
-            upload_space_image(bot, "resized_images/" + image)
-            time.sleep(15)
+            bot.upload_photo("resized_images/" + image)
+            time.sleep(60)
         except:
             continue
-    
+
 
 if __name__ == "__main__":
     main()
