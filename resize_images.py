@@ -8,18 +8,16 @@ def save_resized_image(image):
     Image.MAX_IMAGE_PIXELS = None
     pil_image = Image.open(image)
 
+    pil_image = pil_image.convert('RGB')
     pil_image.thumbnail((1080, 1080))
 
-    if pil_image.width == 1080:
-        resized_image = 'resized_images/' + image.split('/')[-1].replace(".png", ".jpg")
-        # Некоторые .png картинки имеют формат RGBA 
-        # и при форматировании в .jpg бросают исключение
-        try:
-            pil_image.save(resized_image, format="JPEG")
-        except OSError:
-            pass
-        except MemoryError:
-            pass
+    # Несмотря на то, что thumbnail должен давать картинку
+    # с 1080 по большей стороне, попадаються "аномалии" вида 1000x600,
+    # которые нужно отсеять
+    if pil_image.width == 1080 or pil_image.height == 1080:
+        resized_image = 'resized_images/' + \
+            image.split('/')[-1].replace(".png", ".jpg")
+        pil_image.save(resized_image, format="JPEG")
 
 
 def save_resized_images_in_directory(path):
@@ -37,7 +35,7 @@ def save_resized_images_in_directory(path):
     for image in images:
         if ".jpg" in image or ".png" in image:
             save_resized_image(path + image)
-        
+
 
 def main():
     pathes = ['images/hubble/',
