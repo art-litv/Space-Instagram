@@ -21,9 +21,9 @@ def get_hubble_images_urls(image_id=0, collection=False, page="all") -> list:
         hubble_files = response.json()
         if len(hubble_files) > 0:
             hubble_images_urls = [
-                                  image_file['file_url']
-                                  for image_file in hubble_files['image_files']
-                                  ]
+                image_file['file_url']
+                for image_file in hubble_files['image_files']
+            ]
 
         return hubble_images_urls
 
@@ -34,7 +34,8 @@ def get_hubble_images_urls(image_id=0, collection=False, page="all") -> list:
         response.raise_for_status()
 
         hubble_files_collection = response.json()
-        image_ids = [hubble_file['id'] for hubble_file in hubble_files_collection]
+        image_ids = [hubble_file['id']
+                     for hubble_file in hubble_files_collection]
         for image_id in image_ids:
             response = requests.get(hubble_api_url_image + str(image_id))
             response.raise_for_status()
@@ -42,9 +43,9 @@ def get_hubble_images_urls(image_id=0, collection=False, page="all") -> list:
             hubble_files = response.json()
             if len(hubble_files) > 0:
                 image_urls_list = [
-                                   image_file['file_url']
-                                   for image_file in hubble_files['image_files']
-                                  ]
+                    image_file['file_url']
+                    for image_file in hubble_files['image_files']
+                ]
                 for image_url in image_urls_list:
                     hubble_images_urls.append(image_url)
 
@@ -58,11 +59,11 @@ def download_hubble_images(image_id=0, collection=False, page="all"):
     for hubble_image_url in hubble_images_urls:
         image_id = hubble_image_url.split('/')[-2]
         if not collection:
-            download_image('http:' + hubble_image_url, f'hubble/{image_id}',
+            download_image('http:' + hubble_image_url, f'hubble{os.sep}{image_id}',
                            verify=False)
         elif collection:
             download_image('http:' + hubble_image_url,
-                           f'hubble/{collection}/{image_id}',
+                           f'hubble{os.sep}{collection}{os.sep}{image_id}',
                            verify=False)
 
 
