@@ -31,28 +31,28 @@ def download_spacex_launch_images(max_counts):
     image_counter = 0
 
     spacex_images_urls = get_spacex_launch_images_urls(max_counts)
-    if os.path.exists('images/spacex'):
-        if len(os.listdir('images/spacex')) == 0:
+    if os.path.exists(f'images{os.sep}spacex'):
+        if len(os.listdir(f'images{os.sep}spacex')) == 0:
             pass
         else:
             last_image_index = max([int(image_title.strip('spacex_img').
-                                    split('.')[0]) for image_title
-                                    in os.listdir('images/spacex')])
+                                        split('.')[0]) for image_title
+                                    in os.listdir(f'images{os.sep}spacex')])
             image_counter = last_image_index
             spacex_images_urls = get_spacex_launch_images_urls(
                 max_counts, last_image_index)
 
     for spacex_image_url in spacex_images_urls:
         image_counter += 1
-        download_image(spacex_image_url, f'spacex/spacex_img{image_counter}')
+        download_image(spacex_image_url,
+                       f'spacex{os.sep}spacex_img{image_counter}')
 
 
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--count", help="count of spacex images to download",
-    required=True)
+                        required=True)
     args = parser.parse_args()
-
     download_spacex_launch_images(args.count)
 
 
