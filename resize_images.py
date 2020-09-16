@@ -15,8 +15,8 @@ def save_resized_image(image):
     # с 1080 по большей стороне, попадаються "аномалии" вида 1000x600,
     # которые нужно отсеять
     if pil_image.width == 1080 or pil_image.height == 1080:
-        resized_image = 'resized_images/' + \
-            image.split('/')[-1].replace(".png", ".jpg")
+        resized_image = f'resized_images{os.sep}' + \
+            image.split(os.sep)[-1].replace(".png", ".jpg")
         pil_image.save(resized_image, format="JPEG")
 
 
@@ -38,10 +38,10 @@ def save_resized_images_in_directory(path):
 
 
 def main():
-    pathes = ['images/hubble/',
-              'images/hubble/spacecraft/',
-              'images/hubble/news/',
-              'images/spacex/']
+    pathes = [f'images{os.sep}hubble{os.sep}',
+              f'images{os.sep}hubble{os.sep}spacecraft{os.sep}',
+              f'images{os.sep}hubble{os.sep}news{os.sep}',
+              f'images{os.sep}spacex{os.sep}']
 
     for path in pathes:
         save_resized_images_in_directory(path)
