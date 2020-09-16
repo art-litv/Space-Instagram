@@ -19,11 +19,8 @@ def main():
         exit("resized_images directory does not exist")
 
     for image in images:
-        try:
-            bot.upload_photo("resized_images/" + image)
-            time.sleep(60)
-        except:
-            continue
+        bot.upload_photo(f"resized_images{os.sep}" + image)
+        time.sleep(60)
 
 
 if __name__ == "__main__":
